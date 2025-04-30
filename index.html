@@ -67,30 +67,124 @@
             color: var(--primary);
         }
         
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            margin-left: 0;
+            margin-right: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 16px;
+            padding: 5px 0;
+            display: block;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            right: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(0,62,110,0.9) 0%, rgba(0,119,182,0.9) 100%), 
-                        url('https://images.unsplash.com/photo-1607083206968-13611e3d76db');
+            background: linear-gradient(135deg, rgba(0,62,110,0.9), rgba(0,119,182,0.9)), url('https://images.unsplash.com/photo-1581090700227-1e8e144ec01c?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             color: white;
             padding: 100px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .hero h1 {
-            font-size: 42px;
+        .welcome-message {
+            font-size: 24px;
             margin-bottom: 20px;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .slider-container {
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+        
+        .slide {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .text-box {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .slide h1 {
+            font-size: 42px;
+            margin: 0;
             line-height: 1.3;
             color: white;
             font-weight: 700;
+            padding: 0 20px;
         }
         
-        .hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: rgba(255,255,255,0.9);
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .slider-dot.active {
+            background: white;
         }
         
         /* Button Styles */
@@ -106,7 +200,6 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 16px;
-            margin: 5px;
             box-shadow: 0 4px 15px rgba(255,107,0,0.3);
         }
         
@@ -321,17 +414,24 @@
         }
         
         @media (max-width: 768px) {
+            header {
+                padding: 10px 0;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
             .hero {
                 padding: 80px 0;
             }
             
-            .hero h1 {
-                font-size: 32px;
+            .welcome-message {
+                font-size: 20px;
             }
             
-            .hero p {
-                font-size: 16px;
-                padding: 0 20px;
+            .slide h1 {
+                font-size: 32px;
             }
             
             .btn {
@@ -353,7 +453,7 @@
                 padding: 70px 0;
             }
             
-            .hero h1 {
+            .slide h1 {
                 font-size: 28px;
             }
             
@@ -369,15 +469,48 @@
     <header>
         <div class="container header-container">
             <a href="#" class="logo">فاست <span>ريتش</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#about">من نحن</a></li>
+                    <li><a href="#services">خدماتنا</a></li>
+                    <li><a href="#clients">عملاؤنا</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero" id="home" style="background-image: linear-gradient(135deg, rgba(0,62,110,0.9), rgba(0,119,182,0.9)), url('https://images.unsplash.com/photo-1581090700227-1e8e144ec01c?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center;">
         <div class="container">
-            <h1>خل التوصيل علينا وركز بشغلك</h1>
-            <p>شحن سريع وآمن - بضغطة زر نوصل لك وين ما كنت</p>
-            <a href="https://wa.me/201067435362" class="btn btn-whatsapp">تواصل معنا على واتساب</a>
+            <div class="welcome-message">مرحباً بكم في Fast Reach حيث تلتقي الجودة مع الاحترافية</div>
+
+            <div class="slider-container">
+                <div class="slider" id="textSlider">
+                    <div class="slide">
+                        <div class="text-box">
+                            <h1>خل التوصيل علينا وركز بشغلك</h1>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="text-box">
+                            <h1>شحن سريع وآمن</h1>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="text-box">
+                            <h1>بضغطة زر نوصل لك وين ما كنت</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <div class="slider-dot active" data-index="0"></div>
+                <div class="slider-dot" data-index="1"></div>
+                <div class="slider-dot" data-index="2"></div>
+            </div>
         </div>
     </section>
 
@@ -453,11 +586,11 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta">
+    <section class="cta" id="contact">
         <div class="container">
             <h2>جاهزون لخدمتك</h2>
             <p>تواصل معنا الآن لطلب خدمة التوصيل أو للاستفسار عن أي من خدماتنا</p>
-            <a href="https://wa.me/201067435362" class="btn btn-whatsapp">تواصل على واتساب</a>
+            <a href="https://wa.me/201067435362" class="btn btn-whatsapp">تواصل معنا على واتساب</a>
         </div>
     </section>
 
@@ -472,5 +605,40 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // JavaScript للتبديل بين الشرائح تلقائيًا
+        const slider = document.getElementById('textSlider');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentIndex = 0;
+
+        function updateSlider(index) {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentIndex = parseInt(dot.dataset.index);
+                updateSlider(currentIndex);
+            });
+        });
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % 3;
+            updateSlider(currentIndex);
+        }, 4000); // كل 4 ثواني
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
