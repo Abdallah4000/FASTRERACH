@@ -24,6 +24,7 @@
             line-height: 1.6;
             text-align: right;
             font-weight: 400;
+            transition: all 0.3s ease;
         }
         
         .container {
@@ -109,17 +110,40 @@
             width: 100%;
         }
         
+        /* Language Toggle */
+        .language-toggle {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 2px;
+        }
+        
+        .language-toggle span {
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 18px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .language-toggle span.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(0,62,110,0.8) 0%, rgba(0,119,182,0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             color: white;
             padding: 100px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: background-image 0.5s ease-in-out;
         }
         
         .welcome-message {
@@ -136,14 +160,22 @@
             margin: 30px auto;
             position: relative;
             overflow: hidden;
-            height: 200px;
+            height: 250px; /* Increased height */
         }
         
         .slider {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease; /* Faster transition */
             height: 100%;
             width: 100%;
+        }
+        
+        [lang="ar"] .slider {
+            flex-direction: row;
+        }
+        
+        [lang="en"] .slider {
+            flex-direction: row;
         }
         
         .slide {
@@ -168,7 +200,7 @@
         }
         
         .slide h1 {
-            font-size: 36px;
+            font-size: 42px; /* Increased font size */
             margin: 0;
             line-height: 1.3;
             color: white;
@@ -274,12 +306,14 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            aspect-ratio: 1/1; /* Make it square */
         }
         
         .about-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
+            object-fit: cover; /* Ensure image fills the square */
         }
         
         /* Services Section */
@@ -469,7 +503,7 @@
         /* Responsive Adjustments */
         @media (max-width: 992px) {
             .slide h1 {
-                font-size: 32px;
+                font-size: 36px;
             }
             
             .section-title h2 {
@@ -536,21 +570,52 @@
                 gap: 15px;
             }
         }
+        
+        /* Language Specific Styles */
+        [lang="en"] {
+            text-align: left;
+            direction: ltr;
+        }
+        
+        [lang="en"] .hero,
+        [lang="en"] .slide-content,
+        [lang="en"] .section-title h2:after {
+            text-align: left;
+        }
+        
+        [lang="en"] nav ul li {
+            margin-right: 0;
+            margin-left: 25px;
+        }
+        
+        [lang="en"] nav ul li a:after {
+            right: auto;
+            left: 0;
+        }
+        
+        [lang="en"] nav ul li a:hover:after {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">فاست <span>ريتش</span></a>
+            <a href="#" class="logo lang-ar">فاست <span>ريتش</span></a>
+            <a href="#" class="logo lang-en">Fast <span>Reach</span></a>
             <nav>
                 <ul>
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#about">من نحن</a></li>
-                    <li><a href="#services">خدماتنا</a></li>
-                    <li><a href="#features">مميزاتنا</a></li>
-                    <li><a href="#clients">عملاؤنا</a></li>
-                    <li><a href="#contact">اتصل بنا</a></li>
+                    <li><a href="#home" class="lang-ar">الرئيسية</a><a href="#home" class="lang-en">Home</a></li>
+                    <li><a href="#about" class="lang-ar">من نحن</a><a href="#about" class="lang-en">About</a></li>
+                    <li><a href="#services" class="lang-ar">خدماتنا</a><a href="#services" class="lang-en">Services</a></li>
+                    <li><a href="#features" class="lang-ar">مميزاتنا</a><a href="#features" class="lang-en">Features</a></li>
+                    <li><a href="#clients" class="lang-ar">عملاؤنا</a><a href="#clients" class="lang-en">Clients</a></li>
+                    <li><a href="#contact" class="lang-ar">اتصل بنا</a><a href="#contact" class="lang-en">Contact</a></li>
+                    <li class="language-toggle">
+                        <span class="active" data-lang="ar">العربية</span>
+                        <span data-lang="en">English</span>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -559,23 +624,27 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="welcome-message">مرحباً بكم في Fast Reach حيث تلتقي الجودة مع الاحترافية</div>
+            <div class="welcome-message lang-ar">مرحباً بكم في Fast Reach حيث تلتقي الجودة مع الاحترافية</div>
+            <div class="welcome-message lang-en">Welcome to Fast Reach where quality meets professionalism</div>
             
             <div class="slider-container">
                 <div class="slider">
                     <div class="slide">
                         <div class="slide-content">
-                            <h1>خل التوصيل علينا وركز بشغلك</h1>
+                            <h1 class="lang-ar">خل التوصيل علينا وركز بشغلك</h1>
+                            <h1 class="lang-en">Leave delivery to us and focus on your work</h1>
                         </div>
                     </div>
                     <div class="slide">
                         <div class="slide-content">
-                            <h1>شحن سريع وآمن</h1>
+                            <h1 class="lang-ar">شحن سريع وآمن</h1>
+                            <h1 class="lang-en">Fast and secure shipping</h1>
                         </div>
                     </div>
                     <div class="slide">
                         <div class="slide-content">
-                            <h1>بضغطة زر نوصل لك وين ما كنت</h1>
+                            <h1 class="lang-ar">بضغطة زر نوصل لك وين ما كنت</h1>
+                            <h1 class="lang-en">With one click we deliver wherever you are</h1>
                         </div>
                     </div>
                 </div>
@@ -593,18 +662,31 @@
     <section class="about" id="about">
         <div class="container">
             <div class="section-title">
-                <h2>من نحن</h2>
-                <p>شركة رائدة في مجال التوصيل السريع</p>
+                <h2 class="lang-ar">عن فاست ريتش</h2>
+                <h2 class="lang-en">About Fast Reach</h2>
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>فاست ريتش - خدمة التوصيل السريع</h3>
-                    <p>نحن شركة متخصصة في تقديم خدمات التوصيل السريع باحترافية وجودة عالية. نقدم حلولاً لوجستية متكاملة تلبي احتياجات عملائنا في مختلف القطاعات.</p>
-                    <p>بفضل فريقنا المحترف وأسطولنا الحديث، نضمن وصول طلباتكم في الوقت المحدد وبأعلى معايير الجودة.</p>
-                    <a href="#contact" class="btn">تواصل معنا</a>
+                    <h3 class="lang-ar">هدفنا</h3>
+                    <h3 class="lang-en">Our Goal</h3>
+                    <p class="lang-ar">ان نكون الخيار الاول للعملاء في مجال الخدمات اللوجستية على مستوى المملكة؛ عن طريق تحسين جودة العمل بشكل دوري ومستمر لارضاء عملائنا، يقينًا منا بالقدرة على الانفراد بما نطمح والتفاني بما نقدم.</p>
+                    <p class="lang-en">To be the first choice for customers in logistics services across the Kingdom by continuously improving work quality to satisfy our customers, confident in our ability to excel in our aspirations and dedication to what we offer.</p>
+                    
+                    <h3 class="lang-ar">على ماذا نعمل؟</h3>
+                    <h3 class="lang-en">What do we do?</h3>
+                    <p class="lang-ar">نحن نعمل على استثمار وقت عملائنا بتقديم خدمات مميزة وحلول فورية وسريعة. نسعى دوماً للتجدد والابتكار لنمنحك تجربة لوجستية استثنائية.</p>
+                    <p class="lang-en">We work to invest our customers' time by providing exceptional services and immediate, fast solutions. We constantly seek renewal and innovation to give you an exceptional logistics experience.</p>
+                    
+                    <h3 class="lang-ar">فريقنا</h3>
+                    <h3 class="lang-en">Our Team</h3>
+                    <p class="lang-ar">فريقنا هو سر سرعتنا ونجاحنا. بخبرته والتزامه، نضمن لكم خدمات لوجستية احترافية تتجاوز التوقعات.</p>
+                    <p class="lang-en">Our team is the secret to our speed and success. With their expertise and commitment, we guarantee professional logistics services that exceed expectations.</p>
+                    
+                    <a href="#contact" class="btn lang-ar">تواصل معنا</a>
+                    <a href="#contact" class="btn lang-en">Contact Us</a>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1603138461420-e24168721842" alt="فريق التوصيل">
+                    <img src="x.jpeg" alt="فريق التوصيل">
                 </div>
             </div>
         </div>
@@ -614,24 +696,32 @@
     <section class="services" id="services">
         <div class="container">
             <div class="section-title">
-                <h2>خدماتنا</h2>
-                <p>نقدم مجموعة متكاملة من خدمات التوصيل</p>
+                <h2 class="lang-ar">خدماتنا</h2>
+                <h2 class="lang-en">Our Services</h2>
+                <p class="lang-ar">نقدم مجموعة متكاملة من خدمات التوصيل</p>
+                <p class="lang-en">We provide a complete range of delivery services</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">🚚</div>
-                    <h3>التوصيل السريع</h3>
-                    <p>خدمة توصيل سريعة داخل المدينة خلال ساعتين فقط</p>
+                    <h3 class="lang-ar">التوصيل السريع</h3>
+                    <h3 class="lang-en">Fast Delivery</h3>
+                    <p class="lang-ar">خدمة توصيل سريعة داخل المدينة خلال ساعتين فقط</p>
+                    <p class="lang-en">Fast delivery service within the city in just 2 hours</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">📦</div>
-                    <h3>التوصيل الآمن</h3>
-                    <p>توصيل آمن للمستندات والبضائع القيمة مع تأمين كامل</p>
+                    <h3 class="lang-ar">التوصيل الآمن</h3>
+                    <h3 class="lang-en">Secure Delivery</h3>
+                    <p class="lang-ar">توصيل آمن للمستندات والبضائع القيمة مع تأمين كامل</p>
+                    <p class="lang-en">Secure delivery for documents and valuable goods with full insurance</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">⏱️</div>
-                    <h3>توصيل على مدار الساعة</h3>
-                    <p>خدمة توصيل متاحة 24/7 لتلبية احتياجاتكم في أي وقت</p>
+                    <h3 class="lang-ar">توصيل على مدار الساعة</h3>
+                    <h3 class="lang-en">24/7 Delivery</h3>
+                    <p class="lang-ar">خدمة توصيل متاحة 24/7 لتلبية احتياجاتكم في أي وقت</p>
+                    <p class="lang-en">24/7 delivery service to meet your needs anytime</p>
                 </div>
             </div>
         </div>
@@ -641,25 +731,35 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>لماذا تختارنا؟</h2>
-                <p>نحن نقدم أفضل الخدمات بأعلى معايير الجودة</p>
+                <h2 class="lang-ar">لماذا تختارنا؟</h2>
+                <h2 class="lang-en">Why Choose Us?</h2>
+                <p class="lang-ar">نحن نقدم أفضل الخدمات بأعلى معايير الجودة</p>
+                <p class="lang-en">We provide the best services with the highest quality standards</p>
             </div>
             <div class="features-container">
                 <div class="feature-box">
-                    <h3>الاحترافية</h3>
-                    <p>مناديب محترفين ويعرفون الطرق</p>
+                    <h3 class="lang-ar">الاحترافية</h3>
+                    <h3 class="lang-en">Professionalism</h3>
+                    <p class="lang-ar">مناديب محترفين ويعرفون الطرق</p>
+                    <p class="lang-en">Professional couriers who know the routes</p>
                 </div>
                 <div class="feature-box">
-                    <h3>امان وموثوقية</h3>
-                    <p>نهتم بشحنتك وكأنها لنا</p>
+                    <h3 class="lang-ar">امان وموثوقية</h3>
+                    <h3 class="lang-en">Safety & Reliability</h3>
+                    <p class="lang-ar">نهتم بشحنتك وكأنها لنا</p>
+                    <p class="lang-en">We care for your shipment as if it were ours</p>
                 </div>
                 <div class="feature-box">
-                    <h3>سرعة في التوصيل</h3>
-                    <p>نوصل طلبك بأسرع وقت مهما كان مكانك</p>
+                    <h3 class="lang-ar">سرعة في التوصيل</h3>
+                    <h3 class="lang-en">Fast Delivery</h3>
+                    <p class="lang-ar">نوصل طلبك بأسرع وقت مهما كان مكانك</p>
+                    <p class="lang-en">We deliver your order quickly wherever you are</p>
                 </div>
                 <div class="feature-box">
-                    <h3>دعم متواصل</h3>
-                    <p>نرد عليك ونتابع معك خطوة بخطوة</p>
+                    <h3 class="lang-ar">دعم متواصل</h3>
+                    <h3 class="lang-en">Continuous Support</h3>
+                    <p class="lang-ar">نرد عليك ونتابع معك خطوة بخطوة</p>
+                    <p class="lang-en">We respond to you and follow up step by step</p>
                 </div>
             </div>
         </div>
@@ -669,8 +769,10 @@
     <section class="clients" id="clients">
         <div class="container">
             <div class="section-title">
-                <h2>عملاؤنا</h2>
-                <p>شركاء النجاح الذين وثقوا بخدماتنا</p>
+                <h2 class="lang-ar">عملاؤنا</h2>
+                <h2 class="lang-en">Our Clients</h2>
+                <p class="lang-ar">شركاء النجاح الذين وثقوا بخدماتنا</p>
+                <p class="lang-en">Success partners who trusted our services</p>
             </div>
             <div class="clients-grid">
                 <div class="client-logo">
@@ -695,17 +797,22 @@
     <!-- CTA Section -->
     <section class="cta" id="contact">
         <div class="container">
-            <h2>جاهزون لخدمتكم</h2>
-            <p>تواصل معنا الآن واحصل على أفضل خدمات التوصيل السريع في المنطقة</p>
-            <a href="https://wa.me/+966501378454" class="btn btn-whatsapp">تواصل عبر واتساب</a>
-            <a href="tel:++966501378454" class="btn">اتصل بنا</a>
+            <h2 class="lang-ar">جاهزون لخدمتكم</h2>
+            <h2 class="lang-en">Ready to Serve You</h2>
+            <p class="lang-ar">تواصل معنا الآن واحصل على أفضل خدمات التوصيل السريع في المنطقة</p>
+            <p class="lang-en">Contact us now and get the best fast delivery services in the region</p>
+            <a href="https://wa.me/+966501378454" class="btn btn-whatsapp lang-ar">تواصل عبر واتساب</a>
+            <a href="https://wa.me/+966501378454" class="btn btn-whatsapp lang-en">Contact via WhatsApp</a>
+            <a href="tel:++966501378454" class="btn lang-ar">اتصل بنا</a>
+            <a href="tel:++966501378454" class="btn lang-en">Call Us</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <a href="#" class="footer-logo">فاست <span>ريتش</span></a>
+            <a href="#" class="footer-logo lang-ar">فاست <span>ريتش</span></a>
+            <a href="#" class="footer-logo lang-en">Fast <span>Reach</span></a>
             <div class="footer-info">
                 <div class="footer-info-item">
                     <i>✉️</i>
@@ -713,18 +820,33 @@
                 </div>
                 <div class="footer-info-item">
                     <i>📍</i>
-                    <span>الرياض</span>
+                    <span class="lang-ar">الرياض</span>
+                    <span class="lang-en">Riyadh</span>
                 </div>
             </div>
-            <p>خدمة التوصيل السريع الأكثر كفاءة واحترافية</p>
+            <p class="lang-ar">خدمة التوصيل السريع الأكثر كفاءة واحترافية</p>
+            <p class="lang-en">The most efficient and professional fast delivery service</p>
             <div class="copyright">
-                &copy; 2022 فاست ريتش. جميع الحقوق محفوظة.
+                &copy; <span class="lang-ar">2022 فاست ريتش. جميع الحقوق محفوظة.</span>
+                <span class="lang-en">2022 Fast Reach. All rights reserved.</span>
             </div>
         </div>
     </footer>
 
     <script>
+        // Background images for slides
+        const backgroundImages = [
+            'url(1.jpeg)',
+            'url(2.jpeg)',
+            'url(3.jpeg)'
+        ];
+        
+        // Set initial background image
+        document.querySelector('.hero').style.backgroundImage = 
+            `linear-gradient(135deg, rgba(0,62,110,0.8) 0%, rgba(0,119,182,0.8) 100%), ${backgroundImages[0]}`;
+        
         // Enhanced Slider functionality
+        const heroSection = document.querySelector('.hero');
         const slider = document.querySelector('.slider');
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
@@ -732,20 +854,28 @@
         let slideInterval;
         
         function updateSlider() {
-            // For RTL, we use positive translation values
-            slider.style.transform = `translateX(${currentIndex * 100}%)`;
+            // Get current language direction
+            const isRTL = document.documentElement.dir === 'rtl';
+            
+            // Adjust translation based on language direction
+            const translation = isRTL ? currentIndex * 100 : currentIndex * -100;
+            slider.style.transform = `translateX(${translation}%)`;
             
             // Update dots
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentIndex);
             });
+            
+            // Update background image
+            heroSection.style.backgroundImage = 
+                `linear-gradient(135deg, rgba(0,62,110,0.8) 0%, rgba(0,119,182,0.8) 100%), ${backgroundImages[currentIndex]}`;
         }
         
         function startSlider() {
             slideInterval = setInterval(() => {
                 currentIndex = (currentIndex + 1) % slides.length;
                 updateSlider();
-            }, 4000);
+            }, 3000); // Faster slide transition (3 seconds instead of 4)
         }
         
         // Start the slider
@@ -785,11 +915,16 @@
         }, false);
         
         function handleSwipe() {
-            if (touchEndX < touchStartX) {
-                // Swipe left (next slide in RTL)
+            const isRTL = document.documentElement.dir === 'rtl';
+            const swipeThreshold = 50; // Minimum swipe distance to trigger slide change
+            
+            if (Math.abs(touchEndX - touchStartX) < swipeThreshold) return;
+            
+            if ((isRTL && touchEndX < touchStartX) || (!isRTL && touchEndX > touchStartX)) {
+                // Swipe left in RTL or right in LTR (next slide)
                 currentIndex = (currentIndex + 1) % slides.length;
-            } else if (touchEndX > touchStartX) {
-                // Swipe right (previous slide in RTL)
+            } else {
+                // Swipe right in RTL or left in LTR (previous slide)
                 currentIndex = (currentIndex - 1 + slides.length) % slides.length;
             }
             updateSlider();
@@ -804,6 +939,45 @@
                 });
             });
         });
+        
+        // Language toggle functionality
+        const languageToggles = document.querySelectorAll('.language-toggle span');
+        let currentLang = 'ar';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update HTML lang and dir attributes
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update active toggle
+            languageToggles.forEach(t => {
+                t.classList.toggle('active', t.getAttribute('data-lang') === lang);
+            });
+            
+            // Show/hide language elements
+            document.querySelectorAll('.lang-ar, .lang-en').forEach(el => {
+                if (el.classList.contains(`lang-${lang}`)) {
+                    el.style.display = '';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            
+            // Update slider position when language changes
+            updateSlider();
+        }
+        
+        languageToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+        
+        // Initialize language
+        setLanguage('ar');
     </script>
 </body>
 </html>
